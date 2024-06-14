@@ -3,7 +3,7 @@ import SearchResultsArticleListings from "@/components/SearchResults/SearchResul
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@/utils/supabase/server";
-
+import { articles } from "@/Types/allTypes";
 
 export default async function Id({
   params,
@@ -20,7 +20,7 @@ export default async function Id({
         Search results for: {params.id}
       </h2>
       {data && data.length > 0 ? (
-        data.map((item) => <SearchResultsArticleListings item={item} />)
+        data.map((item: articles) => <SearchResultsArticleListings item={item} />)
       ) : (
         <h1 className="text-3xl text-center">
           No results for the search term '{params.id}' exist

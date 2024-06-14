@@ -18,6 +18,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SunEditor from "suneditor-react";
 import { Alert } from "@material-tailwind/react";
 
+
+
+// By default, the CldImage component applies auto-format and auto-quality to all delivery URLs for optimized delivery.
+
+    
+ 
+
 export default function App() {
   const supabase = createClient();
   const editorRef = useRef<SunEditorCore>();
@@ -74,7 +81,6 @@ export default function App() {
   }
 
   const submitArticle: SubmitHandler<ArticleFormData> = async (data) => {
-    console.log("yay");
     if (editorRef.current !== null) {
       const content = editorRef.current.getContents(true);
       if (!content) {

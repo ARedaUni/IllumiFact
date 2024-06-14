@@ -4,14 +4,14 @@ module.exports = withMT({
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/tw-elements-react/dist/js/**/*.{js,ts,jsx,tsx,mdx}"
   ],
   darkMode: 'class',
   theme: {
     extend: {
       screens: {
         'tablet': '500px',
-        'navconfig': '1033px'
+        'navconfig': '1033px',
+        'navconfig2': '1431px'
       },
       colors: {
         background: "hsl(var(--background))",
@@ -32,5 +32,4 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [require("tw-elements-react/dist/plugin.cjs")],
 });

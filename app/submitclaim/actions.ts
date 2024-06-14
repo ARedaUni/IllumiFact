@@ -11,27 +11,28 @@ export async function submitMisinformationClaim(formData: FormData) {
     const claimSummary = formData.get("claimSummary") as string;
     const { data } = await supabase.auth.getUser();
   
-    // const { error } = await supabase.from("claims").insert({
-    //   claim_name: claimName,
-    //   claim_content: claimSummary,
-    //   claim_author_email: data?.user?.email || "",
-    //   claim_author_id: data?.user?.id || "",
-    // });
-    fetch('http://127.0.0.1:54321/functions/v1/submitMisinformation', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`
-    },
-    body: JSON.stringify({claim_name: claimName, claimSummary}),
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Success:', data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+    const { error } = await supabase.from("claims").insert({
+      claim_name: claimName,
+      claim_content: claimSummary,
+      claim_author_email: data?.user?.email || "",
+      claim_author_id: data?.user?.id || "",
+    });
+    if(error) throw Error(error.message)
+  //   fetch('http://127.0.0.1:54321/functions/v1/submitMisinformation', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`
+  //   },
+  //   body: JSON.stringify({claim_name: claimName, claimSummary}),
+  // })
+  // .then(response => response.json())
+  // .then(data => {
+  //   console.log('Success:', data);
+  // })
+  // .catch((error) => {
+  //   console.error('Error:', error);
+  // });
 
     // if (error) {
     //         return new NextResponse(

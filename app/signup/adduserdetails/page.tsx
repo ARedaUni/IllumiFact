@@ -1,16 +1,102 @@
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { uploadToDatabase } from "./actions";
+"use client";
+import { sessionType } from "@/Types/allTypes";
+import { createClient } from "@/utils/supabase/supabase";
+import { User } from "@supabase/supabase-js";
+import { useRouter } from "next/router";
+//import { createClient } from "@/utils/supabase/server";
+//import { redirect } from "next/navigation";
+import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
+// export async function uploadToDatabase(
+//   user,
+//   formData: FormData
+// ) {
+//   "use server";
+//   const username = formData.get("username") as string;
+//   const image = formData.get("profile-picture");
+//   const supabase = createClient()
+//   async function uploadImageToSupabaseBucket(bucketName: string, imageName: string, image: File|null|any) {
+//     const { data, error } = await supabase.storage
+//       .from(bucketName)
+//       .upload(imageName, image, {
+//         cacheControl: "3600",
+//         upsert: false,
+//       });
+//   };
+//   if (image && image instanceof File && image.name !== "" && username !== "") {
+//     const { error } = await supabase
+//       .from("users")
+//       .update({ username: username, pfp: image.name })
+//       .eq("id", user.id);
 
-export default async function adduserdetails() {
+//     if (error) {
+//       console.error("Error updating user data:", error);
+//       return;
+//     }
+
+//     await uploadImageToSupabaseBucket("userprofilepictures", image.name, image);
+
+//   }
+// }
+
+export default function adduserdetails() {
   const supabase = createClient();
-  const userdata = await supabase.auth.getUser();
-  if (userdata.data.user === null) redirect("/");
-  const upload = uploadToDatabase.bind(null, userdata.data.user);
-  const { data } = await supabase
-    .from("users")
-    .select()
-    .eq("id", userdata?.data?.user?.id as string);
+  const [user, setUser] = useState<User | null>(null);
+  const [username, setUserName] = useState("");
+  const [image, setImage] = useState<string>();
+  const [imageObject, setImageObject] = useState<File>();
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+
+      setImageObject(event.target.files[0]);
+      console.log(event.target.files[0].name);
+    }
+  };
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((_, session) => {
+      session && setUser(session.user);
+    });
+  }, []);
+
+  async function upload(e:any, image: File|undefined, username: string) {
+    e.preventDefault();
+    async function uploadImageToSupabaseBucket(
+      bucketName: string,
+      imageName: string,
+      image: File | null | any
+    ) {
+      const { data, error } = await supabase.storage
+        .from(bucketName)
+        .upload(imageName, image, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+    }
+    if (
+      image &&
+      image instanceof File &&
+      image.name !== "" &&
+      username &&
+      username !== ""
+    ) {
+      const { error } = await supabase
+        .from("users")
+        .update({ username: username, pfp: image.name })
+        .eq("id", user!.id);
+
+      if (error) {
+        console.error("Error updating user data:", error);
+        return;
+      }
+
+      await uploadImageToSupabaseBucket(
+        "userprofilepictures",
+        image.name,
+        image
+      );
+      window.location.assign("/");
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center p-3 min-h-screen">
@@ -22,7 +108,7 @@ export default async function adduserdetails() {
           Add your username and profile picture.
         </p>
 
-        <form action={upload} className="space-y-4">
+        <form className="space-y-4">
           <div>
             <label
               htmlFor="username"
@@ -34,6 +120,10 @@ export default async function adduserdetails() {
               type="text"
               id="username"
               name="username"
+              maxLength={9}
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
               required
               className="mt-1 p-2 w-full border rounded-md shadow-sm focus:ring focus:ring-indigo-500"
             />
@@ -50,13 +140,14 @@ export default async function adduserdetails() {
               type="file"
               id="profile-picture"
               name="profile-picture"
+              onChange={handleImageUpload}
               required
               className="mt-1 p-2 w-full border rounded-md shadow-sm focus:ring focus:ring-indigo-500"
             />
           </div>
-
+          {image ? <img src={image}></img> : <div></div>}
           <button
-            type="submit"
+            onClick={(e) => upload(e, imageObject, username)}
             className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-md hover:opacity-90 focus:outline-none"
           >
             Confirm

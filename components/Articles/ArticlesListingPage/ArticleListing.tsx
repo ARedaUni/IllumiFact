@@ -8,7 +8,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { articles, articlesArray } from "@/Types/allTypes";
-
+import Image from "next/image";
 export default function ArticleListing({
   articleContent, edit
 }: {
@@ -34,10 +34,12 @@ export default function ArticleListing({
                   floated={false}
                   className="m-0 w-2/5 shrink-0 rounded-r-none"
                 >
-                  <img
+                  <Image
                     src={image + item.image}
-                    alt="card-image"
+                    alt={`Article image for ${item.title}`}
                     className="h-full w-full object-cover"
+                    height={400}
+                    width={400}
                   />
                 </CardHeader>
                 <CardBody placeholder="">
@@ -58,10 +60,11 @@ export default function ArticleListing({
                       {item.summary}
                     </p>
                   </Typography>
-                  <a href="#" className="inline-block">
+                  
                     <Button
                       placeholder=""
                       variant="text"
+                      id="button to go to article"
                       className="flex items-center gap-2"
                     >
                       {edit ? `Edit Article` :`Go to Article`} 
@@ -80,7 +83,7 @@ export default function ArticleListing({
                         />
                       </svg>
                     </Button>
-                  </a>
+                  
                 </CardBody>
               </Card>
             </Link>

@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-
+import Image from "next/image";
 export default function SettingsComponents({ user }) {
   const img =
     "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/userprofilepictures/";
@@ -18,17 +18,21 @@ export default function SettingsComponents({ user }) {
     <div className="grid max-w-2xl mx-auto mt-8">
       <div className="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
         {!image ? (
-          <img
+          <Image
             className="object-cover w-40 h-40 p-1 rounded-full border-black ring-2 "
             src={img + user[0].pfp}
             alt="Bordered avatar"
+            width={140}
+            height={140}
           />
         ) : (
-          <img
+          <Image
             className="object-cover w-40 h-40 p-1 border-black rounded-full ring-2 "
             src={URL.createObjectURL(image)}
             alt="Bordered avatar"
-          ></img>
+            width={140}
+            height={140}
+          />
         )}
         <div className="flex flex-col space-y-5 sm:ml-8">
           <label

@@ -34,7 +34,7 @@ export default async function Navbar() {
             IllumiFact
           </span>
         </Link>
-        <div className="w-full font-sans hidden navconfig:!flex justify-center items-center p-3 xl:!text-xl navconfig:!text-extrabold [&>*]:mx-3">
+        <div className="w-full font-sans hidden navconfig:!flex justify-center items-center p-3 text-md text-extrabold navconfig2:!text-xl [&>*]:mx-1 navconfig2:[&>*]:!mx-3">
           <Link href="/factchecks">Fact Checks</Link>
           <Link href="/submitclaim">Submit a claim</Link>
           <Link href="/aboutus">Who We Are</Link>
@@ -48,7 +48,8 @@ export default async function Navbar() {
             <> <Link href="https://www.patreon.com/MisinformationPlatform?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link">Donate</Link></>
           )}
         </div>
-        <MobileDropdown user={data} />
+        <div className="sm:!inline-block navconfig:!hidden">        <MobileDropdown user={data} /></div>
+
         <div className="flex items-center">
           <SearchBar />
           <UserDetails user={data} />

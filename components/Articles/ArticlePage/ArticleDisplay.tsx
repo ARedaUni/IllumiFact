@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import {
   Card,
   CardHeader,
@@ -8,6 +7,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { createClient } from "@/utils/supabase/supabase";
+import Image from "next/image";
 import Link from "next/link";
 import { articleDisplayPropsTypes } from "@/Types/allTypes";
 import { convertToStringData } from "@/utils/usefulFunctions/convertToStringData";
@@ -18,6 +18,8 @@ export default function ArticleDisplay({ post }: articleDisplayPropsTypes) {
   const image =
     "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/articleimages/";
   const [role, setRole] = useState(null);
+  const [img, setImg] = useState(null);
+
   const supabase = createClient();
 
   async function deleteArticle(id: number) {
@@ -37,7 +39,6 @@ export default function ArticleDisplay({ post }: articleDisplayPropsTypes) {
       }
     });
   }, []);
-
   return (
     <Card
       className="max-w-[24rem] overflow-hidden flex flex-col items-stretch "
@@ -53,16 +54,19 @@ export default function ArticleDisplay({ post }: articleDisplayPropsTypes) {
             color="transparent"
             className="m-0 rounded-none"
           >
-            <img src={image + post.image} alt="ui/ux review check" />
+            <Image src={image + post.image} loading="eager" alt="article cover picture" height={400} width={400} priority />
+            
+
+            {/* <img src={image+post.image} alt="article cover picture" height={400} width={400}></img> */}
           </CardHeader>
         </Link>
       </div>
 
       <CardBody placeholder="" className="flex-1">
         <div className="flex justify-between">
-          <Typography variant="h4" color="blue-gray" placeholder="">
+          <p className="text-2xl font-bold text-black">
             {post.title}
-          </Typography>
+          </p>
           {role && role === "admin" ? (
             <button
               onClick={() => {
@@ -85,23 +89,21 @@ export default function ArticleDisplay({ post }: articleDisplayPropsTypes) {
             <div></div>
           )}
         </div>
-        <Typography
-          placeholder=""
-          variant="lead"
+        <p
           color="gray"
-          className="mt-3 font-normal"
+          className="mt-3 text-xl"
         >
           {post.summary}
-        </Typography>
+        </p>
       </CardBody>
       <CardFooter
         placeholder=""
         className="flex items-center !justify-between mb-0"
       >
         <div className="flex items-center -space-x-3">{post.author_name}</div>
-        <Typography placeholder="" className="font-normal">
+        <p className="font-normal">
           {convertToStringData(post.published_at)}
-        </Typography>
+        </p>
       </CardFooter>
     </Card>
   );

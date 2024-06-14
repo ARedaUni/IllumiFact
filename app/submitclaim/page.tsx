@@ -47,6 +47,8 @@ export default async function Submitclaim() {
               className="rounded-md p-2 shadow-lg border-2 border-black"
               id="claimName"
               name="claimName"
+              minLength={6}
+              required
             ></input>
 
             <label className="text-xl" htmlFor="claimSummary">
@@ -58,6 +60,8 @@ export default async function Submitclaim() {
               id="claimSummary"
               cols={30}
               rows={10}
+              minLength={200}
+              required
             ></textarea>
 
             {/* {errormessage && (

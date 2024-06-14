@@ -2,6 +2,11 @@
 export const image1 = "https://th.bing.com/th?id=OIP.gXucCuPMpLn4-7u48_gtFQHaJc&w=221&h=282&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
 export const image2 = "https://th.bing.com/th/id/OIP.WCQMLEXocQvMhWDBRCXpiAHaEZ?w=289&h=180&c=7&r=0&o=5&pid=1.7"
 export const image3 = "https://th.bing.com/th/id/OIP.SEh1AzzikmLVx28b642GTwHaE9?w=262&h=180&c=7&r=0&o=5&pid=1.7"
+
+
+// export const image1 = '/images/illuminate';
+// export const image2 = '/images/criticalthinking'
+// export const image3 = '/images/justice'
 export const explanation1 = 'Highlighting misinformation is the first step to mitigating the harms of it. By highlighting misinformation we make sure that people are wary of it and understand that they cannot make truthful decisions based on it.'
 export const explanation2 = 'After highlighting the misinformation, the misinformation is corrected using credible sources. We do not only correct however, we also explain the impact and danger of each claim of misinformation too.'
 export const explanation3 = 'Not only do we fact-check and correct, we also contact the source of misinformation to correct their comments. Those who have been misinformed are much more likely to concede they were wrong if the original claimant corrects themselves.'

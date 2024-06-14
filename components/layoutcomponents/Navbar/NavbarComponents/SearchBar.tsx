@@ -11,14 +11,14 @@ export default function SearchBar(){
         
         <div className="relative text-gray-600">
         <form action={grabSearchBarContent}>           
-             <div className="">
+             <div className="hidden md:!inline-block">
               <input
                 type="search"
                 name="search"
                 placeholder="Search"
-                className="bg-white max-w-24 tablet:min-w-56 md:min-w-72 px-1 h-10  md:px-5 md:mr-4 md:pr-10 rounded-full text-sm focus:outline"
+                className="bg-white max-w-24 xs:max-w-none xs:!min-w-24 sm:!min-w-96 px-1 h-10  md:px-5 md:mr-4 md:pr-10 rounded-full text-sm focus:outline"
               />
-              <button className="absolute right-0 md:right-1 top-0 mt-3 mr-4">
+              <button id="searchbarbutton" aria-label="button for searching articles" className="absolute right-0 md:right-1 top-0 mt-3 mr-4">
                 <svg
                   className="h-4 w-4 fill-current"
                   xmlns="http://www.w3.org/2000/svg"

@@ -2,6 +2,7 @@
 import { articles } from "@/Types/allTypes"
 import { Card, CardHeader, CardBody, Typography, Button } from "@material-tailwind/react"
 import Link from "next/link"
+import Image from "next/image"
 const image = "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/articleimages/";
 export default function SearchResultsArticleListings({item}: {item: articles}){
     return(
@@ -16,10 +17,12 @@ export default function SearchResultsArticleListings({item}: {item: articles}){
             floated={false}
             className="m-0 w-2/5 shrink-0 rounded-r-none"
           >
-            <img
+            <Image
               src={image + item.image!}
               alt="card-image"
               className="h-full w-full object-cover"
+              height={400}
+              width={400}
             />
           </CardHeader>
           <CardBody placeholder="">

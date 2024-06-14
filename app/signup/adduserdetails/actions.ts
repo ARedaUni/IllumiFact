@@ -1,7 +1,8 @@
 //import { uploadImageToSupabaseBucket } from "@/utils/usefulFunctions/uploadImageToSupabaseBucket";
+import { User } from "@/Types/allTypes";
 import { createClient } from "@/utils/supabase/server";
 export async function uploadToDatabase(
-  user, 
+  user: User, 
   formData: FormData
 ) {
   "use server";
@@ -28,5 +29,6 @@ export async function uploadToDatabase(
     }
 
     await uploadImageToSupabaseBucket("userprofilepictures", image.name, image);
+    
   }
 }

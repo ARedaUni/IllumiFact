@@ -9,25 +9,28 @@ async function signup(formData: FormData) {
   const supabase = createClient();
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  // const { error } = await supabase.auth.signUp({
-  //   email,
-  //   password,
-  // });
-  fetch("http://127.0.0.1:54321/functions/v1/signUp", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-  // redirect('/signup/adduserdetails')
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+  if (error) throw Error(""+error.message)
+  else redirect('/signup/success') 
+  //console.log(error)
+  // fetch("http://127.0.0.1:54321/functions/v1/signUp", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({ email, password }),
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //     console.log("Success:", data);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error:", error);
+  //   });
+ 
 }
 // USE ZOD FOR SERVER SIDE VALIDATION
 export default function Signup() {
@@ -93,7 +96,7 @@ export default function Signup() {
           </button>
         </form>
 
-        <p className="mt-10 text-center text-sm xl:!text-xl text-gray-500">
+        <p className="mt-10 text-center text-sm xl:!text-xl text-black">
           Already a member?{" "}
           <a
             href="/login"

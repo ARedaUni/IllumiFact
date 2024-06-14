@@ -11,7 +11,7 @@ export default function ArticlePage({ articles }: { articles: articles }) {
 
   return (
     <div className="flex flex-col justify-start   mt-6 md:!mt-24 max-w-3xl xl:max-w-4xl">
-      <h1 className="text-5xl mb-6 font-extrabold">{articles.title}</h1>
+      <h1 className="text-3xl navconfig:text-5xl mb-6 font-extrabold">{articles.title}</h1>
       <p>Published at {convertToStringData(articles.published_at)}</p>
       <div className="md:flex  border-blue-900 border p-3 mt-16 rounded-lg shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f]">
         <div className="p-2 md:min-w-56">

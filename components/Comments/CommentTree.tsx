@@ -4,6 +4,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import Modal from "../Articles/ArticlePage/Modal";
 import { convertToStringDateWithTime } from "@/utils/usefulFunctions/convertToStringData";
 import ReplyBox from "../Articles/ArticlePage/Replybox";
+import Image from "next/image";
 import { createClient } from "@/utils/supabase/supabase";
 interface CommentWithDepth extends Comment {
   depth: number;
@@ -67,16 +68,17 @@ export default function CommentTree({
         <div key={item.comment_id}>
           <div
             className="flex py-4 mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm"
-            style={{ marginLeft: `${item.depth * 60}px` }} // Indentation based on depth
+            style={{ marginLeft: `${item.depth * 60}px` }} 
           >
             <div className="flex w-full justify-between ">
-              {/* ... Avatar and Comment Details (same as before) ... */}
               <div className="flex w-full justify-between ">
                 <div className="flex">
-                  <img
+                  <Image
                     className="w-12 h-12 border-2 border-gray-300 rounded-full"
-                    alt="Anonymous's avatar"
+                    alt="profile picture of the commenter"
                     src={image + item.pfp}
+                    width={48}
+                    height={48}
                   />
                   <div className="flex-col mt-1">
                     <div className="flex items-center flex-1 px-4 font-bold leading-tight">

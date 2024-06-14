@@ -52,7 +52,6 @@ export type  sessionType = {
 
 export type articleDisplayPropsTypes = {
     post: articles;
-    user: User | null;
 }
 
 export type commentboxProps = {

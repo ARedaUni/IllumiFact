@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 @layer base {
-
+/* 
 @keyframes slideAndFadeIn {
   0% {
     opacity: 0;   
@@ -20,38 +20,45 @@
     opacity: 1;   
     transform: translateY(0); 
   }
-}
+} */
+
+
+/* @keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+} */
 
   .text-shadow {
     text-shadow: 2px 2px 4px var(--shadow-color, rgba(238, 5, 255, 0.2));
   }
   
-  :root {
+ :root {
     --background: 200 20% 98%;
     --btn-background: 200 10% 91%;
     --btn-background-hover: 200 10% 89%;
     --foreground: 200 50% 3%;
     --gradient-start-color: blue;
     --gradient-end-color: purple;
-  }
+  } 
 
-  @media (prefers-color-scheme: light) {
+  /* @media (prefers-color-scheme: light) {
     :root {
       --background: white;
       --btn-background: 200 10% 9%;
       --btn-background-hover: 200 10% 12%;
       --foreground: 200 20% 96%;
-    }
-  }
+    } 
+  } */
 
   .gradient-text { 
     background-image: linear-gradient(to right, var(--gradient-start-color), var(--gradient-end-color));
     background-clip: text;
     -webkit-background-clip: text; 
     color: transparent;
-  }
-  .landingpageanimation {
-    animation: slideAndFadeIn 2s ease-in;
   }
  
 

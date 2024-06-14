@@ -113,7 +113,7 @@ export default function App({ articlecontent }) {
 
   return (
     <form onSubmit={log}>
-      <div className="flex mt-24 flex-col max-w-[250px] md:!min-w-[720px]">
+      <div className="flex mt-24 flex-col max-w-[400px] md:!min-w-[720px]">
         <div className="container mx-auto mt-8 mb-9 px-4">
           <h1 className="text-3xl font-semibold mb-4">Edit Article</h1>
           <form className="space-y-4">
@@ -234,15 +234,19 @@ export default function App({ articlecontent }) {
                 required
               />
               {image ? (
-                <img
+                <Image
                   src={image}
-                  alt="Preview"
+                  alt="Preview of article image to be displayed to users"
                   className="mt-2 rounded-md max-h-48"
+                  height={400}
+                  width={360}
                 /> 
-              ): (<img
+              ): (<Image
                 src={imageURL+image}
-                alt="Preview"
+                alt="Preview of article image to be displayed to users"
                 className="mt-2 rounded-md max-h-48"
+                height={400}
+                  width={360}
               /> )}
             </div>
           </form>
