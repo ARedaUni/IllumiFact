@@ -1,5 +1,4 @@
 import { createBrowserClient } from "@supabase/ssr";
-import { customStorageAdapter } from "./customstorageadapter";
 import { Database } from '@/supabase'
 
 export const createClient = () =>

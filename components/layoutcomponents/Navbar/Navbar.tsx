@@ -5,6 +5,7 @@ import MobileDropdown from "./NavbarComponents/MobileDropdown";
 //search grabbed from https://tailwindcomponents.com/component/search-input-full-rounded
 import SearchBar from "./NavbarComponents/SearchBar";
 import UserDetails from "./NavbarComponents/UserDetails";
+import { user_roles } from "@/Types/allTypes";
 
 export default async function Navbar() {  
   const supabase = createClient();
@@ -17,8 +18,8 @@ export default async function Navbar() {
       .select()
       .eq("id", user?.data?.session?.user.id as string);
     try {
-      const roleDecoded = jwtDecode(user.data.session?.access_token);
-      role = roleDecoded.user_role;
+      const roleDecoded = jwtDecode(user.data.session?.access_token as string) as user_roles;
+      role = roleDecoded.user_role ;
     } catch (e) {
       console.log(e);
     }

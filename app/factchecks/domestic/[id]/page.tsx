@@ -1,20 +1,22 @@
 "use server";
+import { comments } from "@/Types/allTypes";
 import ArticlePage from "@/components/Articles/ArticlePage/ArticlePage";
 import Comments from "@/components/Comments/Comments";
 import { createClient } from "@/utils/supabase/server";
+import { PostgrestSingleResponse } from "@supabase/supabase-js";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: number } }) {
   const supabase = createClient();
   const session = await supabase.auth.getUser();
 
-  const userdata = await supabase
+  const userdata:PostgrestSingleResponse<any | null> = await supabase
     .from("users")
     .select()
     .eq("id", session?.data?.user?.id);
   
     
  
-  const comment = await supabase
+  const comment: PostgrestSingleResponse<comments[] | null> = await supabase
     .from("comments")
     .select()
     .eq("article_id", params.id);

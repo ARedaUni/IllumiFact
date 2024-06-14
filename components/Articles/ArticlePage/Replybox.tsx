@@ -1,3 +1,4 @@
+import { replyBox } from "@/Types/allTypes";
 import { Textarea, IconButton, Button } from "@material-tailwind/react";
 
 export default function ReplyBox({
@@ -9,7 +10,7 @@ export default function ReplyBox({
   submitReply,
   showReplyBox,
   articleid,
-}) {
+}: replyBox) {
   return (
     showReplyBox[commentId] && (
       <div className="mt-3">
@@ -47,7 +48,7 @@ export default function ReplyBox({
                 e.preventDefault();
                 setReplyingTo(null);
                 setReplyContent("");
-                setShowReplyBox((prev) => ({ ...prev, [commentId]: false }));
+                setShowReplyBox((prev: {[key:number]: boolean}) => ({ ...prev, [commentId]: false }));
               }}
               size="sm"
               color="red"

@@ -10,17 +10,10 @@ import SunEditorCore from "suneditor/src/lib/core";
 import { ArticleCreationFormProps } from "@/Types/allTypes";
 
 export default function ArticlecreationForm({
-  setSendData,
-  sendData,
   handleImageUpload,
   image,
-  submitArticle,
-  editorRef,
-  getSunEditorInstance,
-  handleSubmit,
   register,
   errors,
-  control,
 }: ArticleCreationFormProps) {
   const [errormessage, setErrorMessage] = useState<string>("");
   const [errordetected, setErrorDetected] = useState(false);

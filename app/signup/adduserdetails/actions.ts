@@ -1,5 +1,5 @@
 //import { uploadImageToSupabaseBucket } from "@/utils/usefulFunctions/uploadImageToSupabaseBucket";
-import { User } from "@/Types/allTypes";
+import { User } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 export async function uploadToDatabase(
   user: User, 

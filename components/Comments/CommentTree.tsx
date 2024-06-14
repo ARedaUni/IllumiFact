@@ -6,6 +6,7 @@ import { convertToStringDateWithTime } from "@/utils/usefulFunctions/convertToSt
 import ReplyBox from "../Articles/ArticlePage/Replybox";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/supabase";
+import { CommentActions, comments } from "@/Types/allTypes";
 interface CommentWithDepth extends Comment {
   depth: number;
 }
@@ -17,6 +18,7 @@ export default function CommentTree({
   deleteComment,
   edit,
   updateComment,
+  setCommentTree,
   setEdit,
   open,
   openModals,
@@ -25,50 +27,53 @@ export default function CommentTree({
   articleid,
   addReplyToTree,
   handleAddReply
-}: {
-  comments: any;
-}) {
+}: 
+  CommentActions
+) {
   const image =
     "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/userprofilepictures/";
-  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyingTo, setReplyingTo] = useState<number|null>(null);
   const [replyContent, setReplyContent] = useState("");
   const [showReplyBox, setShowReplyBox] = useState({});
   const supabase = createClient();
-  function replyToComment(commentId) {
+  function replyToComment(commentId:number) {
     setReplyingTo(commentId);
     setShowReplyBox((prev) => ({ ...prev, [commentId]: true }));
   }
 
-  async function submitReply(parentCommentId, articleid) {
-    const { data: newcom, error } = await supabase.from("comments").insert({
+  async function submitReply(parentCommentId:number, articleid:number) {
+    if(data){
+    const { data: newcomment, error } = await supabase.from("comments").insert({
       content: replyContent,
       commenter_id: data[0].id,
       article_id: articleid,
-      commenter_name: data[0].username,
-      pfp: data[0].pfp,
+      commenter_name: data[0]?.username as string,
+      pfp: data[0]?.pfp,
       parent_id: parentCommentId,
     }).select("*")
-    console.log(newcom)
+  
     if (!error) {
-      handleAddReply(parentCommentId, newcom[0])
+      handleAddReply(parentCommentId, newcomment[0])
       
     }
+  
     console.log(error);
     setReplyingTo(null);
     setReplyContent("");
     setShowReplyBox((prev) => ({ ...prev, [parentCommentId]: false }));
   }
 
+}
 
 
 
   return (
     <div className="">
-      {comments && comments.map((item) => (
+      {comments && comments.map((item: comments) => (
         <div key={item.comment_id}>
           <div
             className="flex py-4 mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm"
-            style={{ marginLeft: `${item.depth * 60}px` }} 
+            style={{ marginLeft: `${item.depth! * 60}px` }} 
           >
             <div className="flex w-full justify-between ">
               <div className="flex w-full justify-between ">
@@ -139,7 +144,7 @@ export default function CommentTree({
               </div>
             </div>
           </div>
-          <div style={{ marginLeft: `${item.depth * 60}px` }}>
+          <div style={{ marginLeft: `${item.depth! * 60}px` }}>
             <ReplyBox
               commentId={item.comment_id}
               setReplyContent={setReplyContent}
@@ -160,7 +165,7 @@ export default function CommentTree({
               updateComment={updateComment}
               deleteComment={deleteComment}
               setEdit={setEdit}
-              item={item}
+              setCommentTree={setCommentTree}
               open={open}
               handleOpen={handleOpen}
               handleClose={handleClose}

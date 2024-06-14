@@ -9,15 +9,15 @@ import {
 import { createClient } from "@/utils/supabase/supabase";
 import Image from "next/image";
 import Link from "next/link";
-import { articleDisplayPropsTypes } from "@/Types/allTypes";
+import { Role, articleDisplayPropsTypes, user_roles } from "@/Types/allTypes";
 import { convertToStringData } from "@/utils/usefulFunctions/convertToStringData";
 import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 export default function ArticleDisplay({ post }: articleDisplayPropsTypes) {
   const image =
     "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/articleimages/";
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useState<Role|null>(null);
   const [img, setImg] = useState(null);
 
   const supabase = createClient();
@@ -34,7 +34,7 @@ export default function ArticleDisplay({ post }: articleDisplayPropsTypes) {
     const x = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
         const jwt = jwtDecode(session.access_token);
-        const userRole = jwt.user_role;
+        const userRole = (jwt as JwtPayload & {user_role: Role}).user_role;
         setRole(userRole);
       }
     });

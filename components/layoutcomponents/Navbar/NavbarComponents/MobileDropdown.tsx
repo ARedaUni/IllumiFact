@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function MobileDropdown({ user }: { user: users[] | null }) {
 //useEffect(() => {initTWE({Dropdown})}, [])
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
   return (
@@ -31,7 +31,7 @@ function classNames(...classes) {
         <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <Menu.Item>
-              {({ focus }) => (
+              {({ focus }: any) => (
                 <a
                   href="/factchecks"
                   className={classNames(
@@ -44,7 +44,7 @@ function classNames(...classes) {
               )}
             </Menu.Item>
             <Menu.Item>
-              {({ focus }) => (
+              {({ focus }: any) => (
                 <a
                   href="/submitclaim"
                   className={classNames(
@@ -57,7 +57,7 @@ function classNames(...classes) {
               )}
             </Menu.Item>
             <Menu.Item>
-              {({ focus }) => (
+              {({ focus }: any) => (
                 <a
                   href="/aboutus"
                   className={classNames(
@@ -71,7 +71,7 @@ function classNames(...classes) {
             </Menu.Item>
           
               <Menu.Item>
-                {({ focus }) => (
+                {({ focus }: any) => (
               <a
               href="https://www.patreon.com/MisinformationPlatform?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link"
               className={classNames(
@@ -86,7 +86,7 @@ function classNames(...classes) {
               {user && user[0].id === "04ce407b-236f-45e3-abc1-3105a1cda7a2" ? (
                  <>
                  <Menu.Item>
-                 {({ focus }) => (
+                 {({ focus }: any) => (
                   
                <a
                href="/protected/viewmisinformation"
@@ -100,7 +100,7 @@ function classNames(...classes) {
                  )}
                </Menu.Item>
                <Menu.Item>
-               {({ focus }) => (
+               {({ focus }: any) => (
              <a
              href="/protected/admin"
              className={classNames(
@@ -113,7 +113,7 @@ function classNames(...classes) {
                )}
              </Menu.Item>
              <Menu.Item>
-               {({ focus }) => (
+               {({ focus }: any) => (
              <a
              href="/editarticles"
              className={classNames(

@@ -2,14 +2,17 @@ import { createClient } from "@/utils/supabase/server";
 import ViewMisinformation from "@/components/ViewMisinformation/ViewMisinformation";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
-import jwt, { JwtPayload } from 'jsonwebtoken'
-export default async function submitclaim(request: NextRequest) {
+import jwt from 'jsonwebtoken'
+import { UUID } from "crypto";
+import { Claim, Role, user_roles } from "@/Types/allTypes";
+
+export default async function submitclaim() {
 
   const supabase = createClient();
   const {data: {session}} = await supabase.auth.getSession();
   if (session === null) redirect("/");
   
- const {user_role} = jwt.verify(session?.access_token, process.env.SUPABASE_JWT!)
+ const {user_role} = jwt.verify(session?.access_token, process.env.SUPABASE_JWT!) as user_roles
   if(user_role !== 'admin') redirect("/")
   const { data, error } = await supabase.from("claims").select();
 
@@ -19,7 +22,7 @@ export default async function submitclaim(request: NextRequest) {
         Claims of misinformation
       </h1>
       {data &&
-        data.map((item) => (
+        data.map((item: Claim) => (
         <ViewMisinformation key={item.id} item={item} />
         ))}
     </div>

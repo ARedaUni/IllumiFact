@@ -1,7 +1,8 @@
 
 import { createClient } from "@/utils/supabase/server";
+import { User } from "@supabase/supabase-js";
 
-export async function uploadToDatabase(user,  formData: FormData) {
+export async function uploadToDatabase(user: User,  formData: FormData) {
   'use server'
   const supabase = createClient();
 
@@ -15,7 +16,7 @@ export async function uploadToDatabase(user,  formData: FormData) {
   };
   const username = formData.get("username") as string;
   const email = formData.get("email") as string;
-  const image = formData.get("image");
+  const image = formData.get("image") as File;
 
   const { error } = await supabase.auth.updateUser({
     email,

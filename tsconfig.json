@@ -6,7 +6,7 @@
     "skipLibCheck": true,
     "strict": true,
     "typeRoots": ["node_modules/@types", "custom_types"],
-    "types": ["formik", "jest", "node"],
+    "types": ["jest", "node"],
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,

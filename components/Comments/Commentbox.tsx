@@ -1,13 +1,13 @@
 "use client";
 import { Textarea, Button, IconButton } from "@material-tailwind/react";
 import { Dispatch, MouseEventHandler, SetStateAction, useState } from "react";
-import { commentboxProps } from "@/Types/allTypes";
+import { commentBoxProps, commentboxProps } from "@/Types/allTypes";
 import { createClient } from "@/utils/supabase/supabase";
 import { useRouter } from "next/router";
-export default function CommentBox({ user, params, submitComment }) {
-  const [comments, setComments] = useState(null);
+export default function CommentBox({ user, submitComment }: commentBoxProps) {
+  
   const [commentbox, setCommentbox] = useState("");
-  const supabase = createClient();
+  
 
   return (
     <div>
@@ -37,7 +37,7 @@ export default function CommentBox({ user, params, submitComment }) {
                 Cancel
               </button>
               <button
-                onClick={(e) => {submitComment(e, commentbox)}}
+                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {submitComment(e, commentbox, user)}}
                 className="rounded-md bg-gradient-to-br from-blue-700 to-purple-500 p-1 text-white"
               >
                 Post Comment

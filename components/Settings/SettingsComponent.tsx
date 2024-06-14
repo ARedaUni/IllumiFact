@@ -1,11 +1,12 @@
 "use client";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
-export default function SettingsComponents({ user }) {
+import { users } from "@/Types/allTypes";
+export default function SettingsComponents({ user }: {user: users[]|null}) {
   const img =
     "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/userprofilepictures/";
-  const [image, setImage] = useState(null);
-  const [imageName, setImageName] = useState(null);
+  const [image, setImage] = useState<File|null>(null);
+  const [imageName, setImageName] = useState<string|null>(null);
   function handleImageUpload(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files.length > 0) {
       const selectedFile = event.target.files[0];
@@ -20,7 +21,7 @@ export default function SettingsComponents({ user }) {
         {!image ? (
           <Image
             className="object-cover w-40 h-40 p-1 rounded-full border-black ring-2 "
-            src={img + user[0].pfp}
+            src={img + user?.[0]?.pfp}
             alt="Bordered avatar"
             width={140}
             height={140}
@@ -66,7 +67,7 @@ export default function SettingsComponents({ user }) {
               id="first_name"
               name="username"
               className="border border-black text-sm navconfig:!text-xl text-black rounded-lg  block w-full p-2.5 "
-              defaultValue={user[0].username as string}
+              defaultValue={user?.[0]?.username as string}
               required
             />
           </div>
@@ -83,7 +84,7 @@ export default function SettingsComponents({ user }) {
             id="email"
             name="email"
             className="border border-black text-sm navconfig:!text-xl rounded-lg  block w-full p-2.5 "
-            defaultValue={user[0].email as string}
+            defaultValue={user?.[0].email as string}
             required
           />
         </div>

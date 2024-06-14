@@ -1,11 +1,13 @@
-export function addReplyToTree(comments, parentCommentId, newComment) {
-  return comments.map((comment) => {
+import { comments } from "@/Types/allTypes";
+
+export function addReplyToTree(comments: comments[]|undefined, parentCommentId: number, newComment: comments): comments[]|undefined {
+  return comments?.map((comment) => {
     if (comment.comment_id === parentCommentId) {
       return {
         ...comment,
         replies: [
           ...(comment.replies || []),
-          { ...newComment, depth: comment.depth + 1 },
+          { ...newComment, depth: comment.depth! + 1 },
         ],
       };
     } else if (comment.replies) {
@@ -19,11 +21,11 @@ export function addReplyToTree(comments, parentCommentId, newComment) {
 }
 
 export function updateCommentInTree(
-  tree,
+  tree: comments[]|undefined,
   commentId: number,
   updatedContent: string
-) {
-  return tree.map((comment) => {
+): comments[]|undefined {
+  return tree?.map((comment) => {
     if (comment.comment_id === commentId) {
       return { ...comment, content: updatedContent, is_edited: true }; // Update the comment itself
     } else if (comment.replies && comment.replies.length > 0) {
@@ -42,8 +44,8 @@ export function updateCommentInTree(
   });
 }
 
-export function deleteCommentFromTree(tree, commentIdToDelete) {
-  return tree.filter((comment) => {
+export function deleteCommentFromTree(tree: comments[]|undefined, commentIdToDelete: number): comments[]|undefined {
+  return tree?.filter((comment: comments) => {
     if (comment.comment_id === commentIdToDelete) {
       return false;
     }

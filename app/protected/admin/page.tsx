@@ -82,7 +82,7 @@ export default function App() {
 
   const submitArticle: SubmitHandler<ArticleFormData> = async (data) => {
     if (editorRef.current !== null) {
-      const content = editorRef.current.getContents(true);
+      const content = editorRef?.current?.getContents(true);
       if (!content) {
         setFormError({ message: "Please enter article content." });
         return;
@@ -124,17 +124,10 @@ export default function App() {
     <div className="flex mt-24 flex-col max-w-[250px] md:!min-w-[720px]">
       <form onSubmit={handleSubmit(submitArticle)} className="space-y-4">
         <ArticlecreationForm
-          setSendData={setSendData}
-          sendData={sendData}
           handleImageUpload={handleImageUpload}
           image={image}
-          submitArticle={submitArticle}
-          editorRef={editorRef}
-          getSunEditorInstance={getSunEditorInstance}
-          handleSubmit={handleSubmit}
           register={register}
           errors={errors}
-          control={control}
         />
         <Controller
           name="content"

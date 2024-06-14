@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/supabase";
-import { jwtDecode } from "jwt-decode";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 import { buildCommentTree } from "@/utils/usefulFunctions/buildcommentree";
 import {
   updateCommentInTree,
@@ -11,24 +11,21 @@ import {
 
 import CommentTree from "./CommentTree";
 import CommentBox from "./Commentbox";
-type Claim = {
-  comment_id: string;
-  commenter_name: string;
-  created_at: string;
-  content: string;
-  commenter_id: string;
-  pfp: string;
-};
+import { commentsComponentProps, commentsProps, comments, user, users, Role, addreplies, Comment } from "@/Types/allTypes";
+import { User } from "@supabase/supabase-js";
 
-export default function Comments({ user, comments, articleid }) {
+//type publicUser = users & {pfp:string; username:string}
+type setCommentsTree = (prev: comments[]) => (comments | { depth: number; article_id: number; comment_id: number; commenter_id: string; commenter_name: string; content: string; created_at: string; pfp: string | null; })[]
+
+export default function Comments({ user, comments, articleid }: commentsComponentProps) {
   const supabase = createClient();
   const image = "https://szitjksnkskfwbckrzfc.supabase.co/storage/v1/object/public/userprofilepictures/";
   const [edit, setEdit] = useState("");
   const [comment, setComments] = useState(comments);
   const [open, setOpen] = useState(false);
   const [openModals, setOpenModals] = useState({});
-  const [role, setRole] = useState(null);
-  const [commentTree, setCommentTree] = useState(buildCommentTree(comments));
+  const [role, setRole] = useState<Role|null|undefined>(null);
+  const [commentTree, setCommentTree] = useState<comments[]|undefined>(buildCommentTree(comments));
   const handleOpen = (commentId: number) => {
     setOpenModals({ ...openModals, [commentId]: true });
   };
@@ -42,17 +39,18 @@ export default function Comments({ user, comments, articleid }) {
       .eq("comment_id", id);
 
     if (!error) {
-      setCommentTree((prevCommentTree) =>
-        deleteCommentFromTree(prevCommentTree, id)
-      );
+      // setCommentTree((prevCommentTree) =>
+      //   deleteCommentFromTree(prevCommentTree, id)
+      // );
+      setCommentTree(deleteCommentFromTree(commentTree,id))
     }
   }
   useEffect(() => {
     const x = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
-        const jwt = jwtDecode(session.access_token);
+        const jwt = jwtDecode<JwtPayload & {user_role?:string}>(session.access_token);
         const userRole = jwt.user_role;
-        setRole(userRole);
+        setRole(userRole as Role);
       }
     });
   }, []);
@@ -65,9 +63,9 @@ export default function Comments({ user, comments, articleid }) {
     {}
   );
 
-  async function handleAddReply(parentCommentId, newComment) {
-    setCommentTree((prevCommentTree) =>
-      addReplyToTree(prevCommentTree, parentCommentId, newComment)
+  async function handleAddReply(parentCommentId:number, newComment:comments|addreplies) {
+    setCommentTree(
+      addReplyToTree(commentTree, parentCommentId, newComment as comments)
     );
   }
   async function updateComment(commentId: number) {
@@ -95,30 +93,35 @@ export default function Comments({ user, comments, articleid }) {
     }
   }
 
-  async function submitComment(e, commentbox) {
+  async function submitComment(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, commentbox:string, user: users|undefined) {
     e.preventDefault();
     if (!user) {
       window.location.assign("/login");
     } else {
-      const { data, error } = await supabase
+      const response = await supabase
         .from("comments")
         .insert({
           content: commentbox,
-          commenter_id: user[0].id,
+          commenter_id: user.id,
           article_id: articleid,
-          commenter_name: user[0].username,
-          pfp: user[0].pfp,
-        })
+          commenter_name: user.username as string,
+          pfp: user.pfp,
+          parent_id: null,
+          is_edited: false
+        } 
+      )
         .select();
-
-      setCommentTree((prev) => [{ ...data[0], depth: 0 }, ...prev]);
+        if (response.error) {
+          console.error("Error submitting comment:", response.error);
+          return; 
+        }
+        setCommentTree([{ ...response.data[0], depth: 0, parent_id:null }, ...commentTree as Array<comments>]);
     }
   }
   return (
     <>
       <CommentBox
         user={user?.[0]}
-        params={articleid}
         submitComment={submitComment}
       />
       {comments && comments.length > 0 ? (
@@ -139,6 +142,7 @@ export default function Comments({ user, comments, articleid }) {
               openModals={openModals}
               handleOpen={handleOpen}
               articleid={articleid}
+              addReplyToTree={addReplyToTree}
               handleAddReply={handleAddReply}
             />
           </div>

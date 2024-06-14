@@ -1,4 +1,5 @@
 "use client";
+import { Claim } from "@/Types/allTypes";
 import {
   Card,
   CardHeader,
@@ -6,7 +7,7 @@ import {
   CardBody,
 } from "@material-tailwind/react";
 
-export default function ViewMisinformation({ item }) {
+export default function ViewMisinformation({ item }: {item: Claim}) {
     return(
   <Card
     placeholder=""

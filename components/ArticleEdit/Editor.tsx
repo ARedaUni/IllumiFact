@@ -20,7 +20,7 @@ const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
 
-export default function App({ articlecontent }) {
+export default function App({ articlecontent }: {articlecontent: articles}) {
   //grabbed from https://www.tiny.cloud/docs/tinymce/latest/react-pm-bundle/
   const supabase = createClient();
   const imageURL =
@@ -164,7 +164,8 @@ export default function App({ articlecontent }) {
               </label>
               <textarea
                 id="claimedSummary"
-                value={sendData.claimedSummary}
+                value={sendData.claimedSummary as string}
+               
                 onChange={(e) =>
                   setSendData({ ...sendData, claimedSummary: e.target.value })
                 }
@@ -179,7 +180,7 @@ export default function App({ articlecontent }) {
           onChange={(e) => {
             setSendData({ ...sendData, ourConclusion: e.target.value });
           }}
-          value={sendData.ourConclusion}
+          value={sendData.ourConclusion as string}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           rows={5}
           required
@@ -192,7 +193,7 @@ export default function App({ articlecontent }) {
           }}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           rows={5}
-          value={sendData.summary}
+          value={sendData.summary as string}
           required
           maxLength={250}
         />
