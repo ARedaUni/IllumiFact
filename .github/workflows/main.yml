@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Continuous Integration + Continuous development using vercel
 
 on:
   pull_request: 
@@ -15,4 +15,11 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
-    
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
