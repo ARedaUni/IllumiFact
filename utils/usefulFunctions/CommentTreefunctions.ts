@@ -7,7 +7,7 @@ export function addReplyToTree(comments: comments[]|undefined, parentCommentId: 
         ...comment,
         replies: [
           ...(comment.replies || []),
-          { ...newComment, depth: comment.depth! + 1 },
+          { ...newComment, depth: (comment.depth || 0) + 1 },
         ],
       };
     } else if (comment.replies) {

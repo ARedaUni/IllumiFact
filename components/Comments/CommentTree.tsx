@@ -53,11 +53,8 @@ export default function CommentTree({
     }).select("*")
   
     if (!error) {
-      handleAddReply(parentCommentId, newcomment[0])
-      
+      handleAddReply(parentCommentId, newcomment[0])    
     }
-  
-    console.log(error);
     setReplyingTo(null);
     setReplyContent("");
     setShowReplyBox((prev) => ({ ...prev, [parentCommentId]: false }));

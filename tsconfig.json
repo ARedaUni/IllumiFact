@@ -25,6 +25,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Editor.js", "__tests__/page.test.tsx", "jest.config.ts", "utils/usefulFunctions/tests/convertToString.test.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/Editor.js", "__tests__/page.test.tsx", "jest.config.ts", "utils/usefulFunctions/tests/convertToString.test.js", "utils/usefulFunctions/tests/commentTreeTests/buildCommentTree.test.js"],
   "exclude": ["node_modules"]
 }
