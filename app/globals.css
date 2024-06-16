@@ -7,30 +7,7 @@
 @tailwind utilities;
 
 @layer base {
-/* 
-@keyframes slideAndFadeIn {
-  0% {
-    opacity: 0;   
-    transform: translateY(-20px); 
-    margin-top: 0;  
-    top: 0
-  }
-  
-  100% {
-    opacity: 1;   
-    transform: translateY(0); 
-  }
-} */
 
-
-/* @keyframes shimmer {
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: 200px 0;
-  }
-} */
 
   .text-shadow {
     text-shadow: 2px 2px 4px var(--shadow-color, rgba(238, 5, 255, 0.2));
@@ -44,15 +21,6 @@
     --gradient-start-color: blue;
     --gradient-end-color: purple;
   } 
-
-  /* @media (prefers-color-scheme: light) {
-    :root {
-      --background: white;
-      --btn-background: 200 10% 9%;
-      --btn-background-hover: 200 10% 12%;
-      --foreground: 200 20% 96%;
-    } 
-  } */
 
   .gradient-text { 
     background-image: linear-gradient(to right, var(--gradient-start-color), var(--gradient-end-color));
