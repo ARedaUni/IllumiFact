@@ -13,7 +13,7 @@ describe('testing function that converts time an article was posted into a reada
 
 
 describe('testing function that converts time the comment was posted in a readable format', () => {
-    const stringDateSupplied = '2024-05-24 15:34:07.18397+00'
+    const stringDateSupplied = '2024-05-24 16:34:07.18397+00'
     it('produces a comment date successfully upon receiving the string from the database', () => {
         expect(convertToStringDateWithTime(stringDateSupplied)).toBe('24 May 2024 4:34 PM')
     })
