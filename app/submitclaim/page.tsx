@@ -1,24 +1,6 @@
 import { redirect } from "next/navigation";
 import { submitMisinformationClaim } from "./actions";
 import { createClient } from "@/utils/supabase/server";
-import { revalidatePath } from 'next/cache';
-
-function CrossIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className="h-6 w-6"
-    >
-      <path
-        fillRule="evenodd"
-        d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}
 
 export default async function Submitclaim() {
   const supabase = createClient();
@@ -64,14 +46,6 @@ export default async function Submitclaim() {
               required
             ></textarea>
 
-            {/* {errormessage && (
-              <Alert
-                icon={<CrossIcon />}
-                className="rounded-none border-l-4 border-[rgba(201,80,46,0.94)] bg-[hsla(0,63%,48%,1)] font-medium text-white"
-              >
-                {errormessage}
-              </Alert>
-            )} */}
           </div>
           <div className="flex justify-center">
             <button

@@ -62,15 +62,6 @@ export default function Signup() {
             />
           </div>
 
-          {/* {errormessage && (
-            <Alert 
-              icon={<CrossIcon />}
-              className="rounded-none border-l-4 border-[rgba(201,80,46,0.94)] bg-[hsla(0,63%,48%,1)] font-medium text-white"
-            >
-              {errormessage}
-            </Alert>
-          )} */}
-
           <div>
             <label
               htmlFor="password"

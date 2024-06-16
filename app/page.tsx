@@ -34,9 +34,6 @@ export default async function Home() {
     <div className=" flex justify-center max-w-80 sm:max-w-none flex-col items-center my-5 navconfig:!my-14">
      
       <div className="text-center  text-wrap  sm:!max-w-none" >
-      {/* <h1 className="text-2xl sm:!text-3xl xl:!text-7xl   font-bold">
-        Welcome to <span className="gradient-text">IllumiFact</span>
-      </h1> */}
       <h3 className="text-shadow  hidden sm:!visible text-2xl md:!text-4xl text-center">We shed light on the political misinformation<br/> in society that threatens our democracy<br/> and the lives of those at home and abroad.</h3>
       </div>
       <div className=" hidden  xl:!flex flex-col   [&>*]:my-3 first:!my-0 xl:!flex-row [&>*]:mx-3 " >
