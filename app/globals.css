@@ -10,7 +10,7 @@
 
 
   .text-shadow {
-    text-shadow: 2px 2px 4px var(--shadow-color, rgba(238, 5, 255, 0.2));
+    text-shadow: 2px 3px 4px var(--shadow-color, rgba(238, 5, 255, 0.2));
   }
   
  :root {

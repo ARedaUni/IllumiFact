@@ -2,7 +2,8 @@ name: Continuous Integration + Continuous development using vercel
 
 on:
   pull_request: 
-    branches: [master]
+    branches: 
+      - main
 
 jobs: 
   test_pull_request:
@@ -11,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 20
       - run: npm ci
       - run: npm test
       - run: npm run build
@@ -19,7 +20,7 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-token: nd1fnzdBPeeoLCpKmo2tPhmz
+          vercel-org-id: team_kNQtVXUdakavZum8CGoC2X0e
+          vercel-project-id: prj_4QrpXessFc7JzYLFNYQDgJepJzRY
           working-directory: ./
