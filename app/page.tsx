@@ -40,7 +40,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className=" flex justify-center max-w-80 sm:max-w-none flex-col items-center my-5 navconfig:!my-14">
+      <div className=" flex justify-center max-w-80 sm:max-w-none flex-col items-center my-5 navconfig:!my-28">
         <div className="text-center  text-wrap  sm:!max-w-none">
           <h3 className="text-shadow  hidden sm:!visible text-2xl md:!text-4xl text-center">
             We shed light on the political misinformation
