@@ -126,8 +126,8 @@ export default function Login() {
         Login
       </h2>
       <p className="xl:text-2xl xl:mt-3 text-gray-600 text-center mb-6">
-        
-      </p>
+         Log in to comment, submit claims of misinformation and contribute to the community.
+        </p>
 
       <form action={login} className="space-y-6 [&>*]:my-6">
         <div>

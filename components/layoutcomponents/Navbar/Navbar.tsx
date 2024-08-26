@@ -42,8 +42,8 @@ export default async function Navbar() {
           {data && role === "admin" ? (
             <div className="flex [&>*]:mx-3">
               <Link href="/protected/viewmisinformation">MC</Link>
-              <Link href="/protected/admin">Write Article</Link>
-              <Link href="/editarticles">Edit Articles</Link>
+              <Link href="/protected/createarticle">Write Article</Link>
+              <Link href="/protected/editarticles">Edit Articles</Link>
             </div>
           ) : (
             <> <Link href="https://www.patreon.com/MisinformationPlatform?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link">Donate</Link></>

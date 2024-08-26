@@ -41,7 +41,7 @@ export default function Signup() {
           Sign Up
         </h2>
         <p className="xl:text-2xl xl:mt-3 text-gray-600 text-center mb-6">
-          Signing up will allow you to comment and submit claims.
+        Sign up to comment, submit claims of misinformation and contribute to the community.
         </p>
 
         <form action={signup} className="space-y-6">
